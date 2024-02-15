@@ -12,11 +12,27 @@ from MultitaskLSTM import MultiTaskModel
 
 
 class trainMultiTaskLSTM:
+    """
+    This class is designed for training a multi-task LSTM model.
+        Attributes:
+            congestion_path: str: The path of the congestion data.
+            k: int: The number of tasks.
+    """
     def __init__(self, congestion_path: str, num_task: int) -> None:
         self.congestion_path = congestion_path
         self.k = num_task
 
     def preprocess(self, split_ratio: float, time_steps: int, batch_size: int) -> tuple:
+            """
+            Prepares the dataset for training by splitting it into train and test sets,
+                reshaping, and loading into DataLoader objects for each task. 
+                Args:
+                    split_ratio: float: The ratio of the test set to the train set.
+                    time_steps: int: The number of time steps to consider for each sample.
+                    batch_size: int: The number of samples in each batch.
+                Returns:
+                    tuple: containing lists of DataLoader objects for the train and test sets.
+            """
             train_dataloaders = []
             test_dataloaders = []
 
@@ -61,6 +77,17 @@ class trainMultiTaskLSTM:
             return train_dataloaders, test_dataloaders
     
     def train(self, model, train_loaders, optimizer, criterion, device) -> float:
+        """
+        Trains the model on the dataset.
+            Args:
+                model (torch.nn.Module): The LSTM model to be trained.
+                train_loaders (list[DataLoader]): A list of DataLoader objects for training.
+                optimizer (torch.optim.Optimizer): The optimizer for training the model.
+                criterion: The loss function.
+                device: The device (CPU or GPU) to perform the training on.
+            Returns:
+                The average training loss as a float.
+        """
         train_loss = []
         
         model.train()
@@ -84,6 +111,16 @@ class trainMultiTaskLSTM:
         total_loss = np.mean(train_loss) # Calculate the mean loss of each task
         return total_loss
     def evaluate(self, model, test_loader, criterion, device) -> list:
+        """
+        Evaluates the trained model on the test dataset.
+            Args:
+                model (torch.nn.Module): The trained LSTM model.
+                test_loader (list[DataLoader]): A list of DataLoader objects for testing.
+                criterion: The loss function.
+                device: The device (CPU or GPU) for evaluation.
+            Returns:
+                A list of losses for each task.
+        """
         losses_list = []
         model.eval()
         model.to(device) # Send the model to the device
