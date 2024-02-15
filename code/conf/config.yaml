@@ -1,0 +1,14 @@
+data:
+  input_file: "..."
+model:
+  n_input: 1
+  n_output: 1
+  n_hidden: 64
+  n_layers: 1
+  n_task: 5
+epochs: 100
+batch_size: 32
+time_steps: 24 
+learning_rate: 0.001
+split_ratio: 0.2
+
