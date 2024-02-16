@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "predictingtrafficcongestion"
+version = "0.1.0"
+description = ""
+authors = ["yukimaru5310 <k.teji0621@gmail.com>"]
+readme = "README.md"
+packages =[
+    { include = "similarity.py", from = "code" },
+    { include = "normalization.py", from = "code" }
+]
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.25.2"
+pandas = "^2.0.3"
+pyarrow = "12.0.1"
+jupyter = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

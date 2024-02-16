@@ -1,5 +1,5 @@
 import pandas as pd
-class normalization:
+class Normalization:
     def minmax_norm(df: pd.DataFrame) -> pd.DataFrame:
         """
         Min-Max Normalization
